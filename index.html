@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Group Assignment</title>
+  <meta name="description" content="Group Assignment">
+  <meta name="author" content="th1z">
+
+  <style type="text/css">
+  	.group {
+      border: 1px solid black;
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+	<div id="app">
+			<label for="quantity">Number of groups</label><br/>
+			<input type="number" id="quantity" name="group-count" min="1" v-model.number="group_count"><br/>
+			<label for="quantity">Students</label><br/>
+      <textarea placeholder="Student1, Student2, ..." v-model="students"></textarea><br/>
+      <button v-on:click="assign_groups">Assign to Groups</button>
+    <div v-for="group in student_groups" class="group">
+      <h1>{{ group.team }}</h1>
+      {{ group.students }}
+    </div>
+	</div>
+</body>
+  <script type="text/javascript">
+    var app = new Vue({
+    el: '#app',
+    data: {
+      group_count: 5,
+      students: "A, B, C, D, E, F",
+      student_groups: [],
+    },
+    methods: {
+      assign_groups: function () {
+        var names = this.students.split(",");
+
+        this.student_groups = [];
+        for (i = 0; i < this.group_count; i++) {
+          this.student_groups.push({
+            team: "Team " + i,
+            students: []
+          });
+        }
+        names.forEach(function(name, index) {
+          this.student_groups[index] = name
+        });
+      }
+    }
+  })
+  </script>
+</html>
+
+
+
